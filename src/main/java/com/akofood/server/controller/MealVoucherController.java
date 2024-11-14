@@ -1,5 +1,6 @@
 package com.akofood.server.controller;
 
+import com.akofood.server.dto.req.MealVoucherCreateRequest;
 import com.akofood.server.dto.req.MealVoucherRequest;
 import com.akofood.server.dto.res.MealVoucherDetailResponse;
 import com.akofood.server.dto.res.MealVoucherResponse;
@@ -36,8 +37,13 @@ public class MealVoucherController {
         return ResponseEntity.ok(mealVouchers);
     }
 
+//    @PostMapping
+//    public MealVoucherResponse createMealVoucher(@RequestBody MealVoucherRequest request) {
+//        return mealVoucherService.createMealVoucher(request);
+//    }
+
     @PostMapping
-    public MealVoucherResponse createMealVoucher(@RequestBody MealVoucherRequest request) {
+    public MealVoucherResponse createMealVoucher(@RequestBody MealVoucherCreateRequest request) {
         return mealVoucherService.createMealVoucher(request);
     }
 

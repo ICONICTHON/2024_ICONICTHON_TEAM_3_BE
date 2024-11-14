@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.UUID;
+
 @Entity
 @Getter
 @Setter
@@ -33,5 +35,12 @@ public class MealVoucher extends BaseTimeEntity {
     private String uniqueIdentifier;
     private int orderNumber;
     private boolean used;
+
+    @PrePersist
+    private void generateUniqueIdentifier() {
+        if (uniqueIdentifier == null || uniqueIdentifier.isEmpty()) {
+            uniqueIdentifier = UUID.randomUUID().toString();
+        }
+    }
 
 }

@@ -19,7 +19,7 @@ import com.akofood.server.dto.res.ReadyResponse;
 @Slf4j
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/order")
+@RequestMapping("/api/order")
 public class OrderController {
 
     private final KakaoPayService kakaoPayService;

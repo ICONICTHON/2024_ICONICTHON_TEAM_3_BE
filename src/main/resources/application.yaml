@@ -42,4 +42,3 @@ cors:
   allowed-origin-frontend-dev: ${ALLOWED_ORIGIN_FRONTEND_DEV}
   allowed-origin-backend-dev: ${ALLOWED_ORIGIN_BACKEND_DEV}
   allowed-origin-deploy: ${ALLOWED_ORIGIN_DEPLOY}
-

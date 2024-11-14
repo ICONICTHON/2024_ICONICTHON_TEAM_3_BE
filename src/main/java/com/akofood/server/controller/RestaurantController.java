@@ -33,6 +33,12 @@ public class RestaurantController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    //
+    @GetMapping("/users/{user_id}/menu-item-favorites/")
+    public List<RestaurantResponse> getRestaurantByMenuItemFavoritesAndByUserId(@PathVariable Long user_id) {
+        return restaurantService.getFavoriteRestaurantsByUserId(user_id);
+    }
+
     @PostMapping
     public RestaurantResponse createRestaurant(@RequestBody RestaurantRequest request) {
         return restaurantService.createRestaurant(request);

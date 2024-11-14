@@ -7,6 +7,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Setter
 @Entity
@@ -24,5 +27,8 @@ public class Restaurant extends BaseTimeEntity {
     private String weekdayHours;
     private String weekendHours;
     private String holidayHours;
+
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<MenuItem> menuItems = new ArrayList<>();
 
 }

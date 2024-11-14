@@ -53,12 +53,13 @@ public class MenuItemFavoriteService {
         return convertToResponse(savedFavorite);
     }
 
+    public Boolean getIsExistMenuItemFavorite(Long userId, Long menuItemId){
+        // 중복 여부 확인
+        Optional<MenuItemFavorite> existingFavorite = menuItemFavoriteRepository.findByUserIdAndMenuItemId(userId, menuItemId);
 
-//    public MenuItemFavoriteResponse createMenuItemFavorite(MenuItemFavoriteRequest request) {
-//        MenuItemFavorite menuItemFavorite = convertToEntity(request);
-//        MenuItemFavorite savedFavorite = menuItemFavoriteRepository.save(menuItemFavorite);
-//        return convertToResponse(savedFavorite);
-//    }
+        // 존재하면 true, 존재하지 않으면 false 반환
+        return existingFavorite.isPresent();
+    }
 
     public void deleteMenuItemFavorite(Long id) {
         menuItemFavoriteRepository.deleteById(id);

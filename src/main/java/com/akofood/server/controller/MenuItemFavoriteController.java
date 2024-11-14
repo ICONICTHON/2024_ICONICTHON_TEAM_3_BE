@@ -29,6 +29,12 @@ public class MenuItemFavoriteController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @GetMapping("/users/{user_id}/menu-items/{menu_item_id}/")
+    public ResponseEntity<Boolean> getIsExistMenuItemFavorite(@PathVariable Long user_id, @PathVariable Long menu_item_id){
+        Boolean isExist = menuItemFavoriteService.getIsExistMenuItemFavorite(user_id, menu_item_id);
+        return ResponseEntity.ok(isExist); // Boolean을 ResponseEntity로 감싸서 반환
+    }
+
     @PostMapping
     public MenuItemFavoriteResponse createMenuItemFavorite(@RequestBody MenuItemFavoriteRequest request) {
         return menuItemFavoriteService.createMenuItemFavorite(request);

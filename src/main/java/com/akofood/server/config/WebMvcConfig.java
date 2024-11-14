@@ -16,13 +16,17 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Value("${cors.allowed-origin-backend-dev}")
     private String allowedOriginBackendDev;
 
+    @Value("${cors.allowed-origin-backend-dev-2}")
+    private String allowedOriginBackendDev2;
+
     @Value("${cors.allowed-origin-deploy}")
     private String allowedOriginDeploy;
+
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins(allowedOriginFrontendDev, allowedOriginBackendDev, allowedOriginDeploy)
+                .allowedOrigins(allowedOriginFrontendDev, allowedOriginBackendDev, allowedOriginBackendDev2, allowedOriginDeploy)
                 .allowedMethods("OPTIONS","GET","POST","PUT","DELETE");
     }
 

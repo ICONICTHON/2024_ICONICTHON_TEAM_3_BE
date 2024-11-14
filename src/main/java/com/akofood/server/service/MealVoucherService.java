@@ -1,5 +1,6 @@
 package com.akofood.server.service;
 
+import com.akofood.server.dto.req.MealVoucherCreateRequest;
 import com.akofood.server.dto.req.MealVoucherRequest;
 import com.akofood.server.dto.res.MealVoucherDetailResponse;
 import com.akofood.server.dto.res.MealVoucherResponse;
@@ -44,7 +45,7 @@ public class MealVoucherService {
         return mealVoucherRepository.findById(id).map(this::convertToResponse);
     }
 
-    public MealVoucherResponse createMealVoucher(MealVoucherRequest request) {
+    public MealVoucherResponse createMealVoucher(MealVoucherCreateRequest request) {
         MealVoucher mealVoucher = convertToEntity(request);
         MealVoucher savedVoucher = mealVoucherRepository.save(mealVoucher);
         return convertToResponse(savedVoucher);
@@ -77,7 +78,7 @@ public class MealVoucherService {
         return response;
     }
 
-    private MealVoucher convertToEntity(MealVoucherRequest request) {
+    private MealVoucher convertToEntity(MealVoucherCreateRequest request) {
         MealVoucher mealVoucher = new MealVoucher();
 
         // User, Restaurant, MenuItem
@@ -88,9 +89,14 @@ public class MealVoucherService {
         MenuItem menuItem = menuItemRepository.findById(request.getMenuItemId()).orElseThrow(NoSuchElementException::new);
         mealVoucher.setMenuItem(menuItem);
 
-        mealVoucher.setUniqueIdentifier(request.getUniqueIdentifier());
-        mealVoucher.setOrderNumber(request.getOrderNumber());
-        mealVoucher.setUsed(request.isUsed());
+        // 메뉴 아이템 ID와 사용 여부를 기준으로 최근 사용된 orderNumber 가져오기
+        Long menuItemId = request.getMenuItemId();
+        Optional<MealVoucher> recentUsedVoucher = mealVoucherRepository.findTopByMenuItemIdAndUsedTrueOrderByUpdatedAtDesc(menuItemId);
+
+        int orderNumber = recentUsedVoucher.map(voucher -> voucher.getOrderNumber() + 1).orElse(200);
+        mealVoucher.setOrderNumber(orderNumber);
+
+        mealVoucher.setUsed(false);
         return mealVoucher;
     }
 

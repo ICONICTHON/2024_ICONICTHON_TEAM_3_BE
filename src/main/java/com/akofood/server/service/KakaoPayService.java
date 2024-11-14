@@ -19,7 +19,7 @@ public class KakaoPayService {
     // 카카오페이 결제창 연결
     public ReadyResponse payReady(String name, int totalPrice) {
 
-        String allowedOriginDeploy = System.getenv("ALLOWED_ORIGIN_DEPLOY");
+        String allowedOriginDeploy = System.getenv("ALLOWED_ORIGIN_BACKEND_DEV_2");
 
         Map<String, String> parameters = new HashMap<>();
         parameters.put("cid", "TC0ONETIME");                                    // 가맹점 코드(테스트용)

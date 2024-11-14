@@ -40,6 +40,12 @@ public class MenuItemFavoriteController {
         return menuItemFavoriteService.createMenuItemFavorite(request);
     }
 
+    @DeleteMapping("/users/{user_id}/menu-items/{menu_item_id}/")
+    public ResponseEntity<Boolean> deleteMenuItemFavoriteByContent(@PathVariable Long user_id, @PathVariable Long menu_item_id){
+        menuItemFavoriteService.deleteMenuItemFavoriteByContent(user_id, menu_item_id);
+        return ResponseEntity.noContent().build();
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteMenuItemFavorite(@PathVariable Long id) {
         menuItemFavoriteService.deleteMenuItemFavorite(id);

@@ -61,6 +61,14 @@ public class MenuItemFavoriteService {
         return existingFavorite.isPresent();
     }
 
+    public void deleteMenuItemFavoriteByContent(Long userId, Long menuItemId){
+        Optional<MenuItemFavorite> existingFavorite = menuItemFavoriteRepository.findByUserIdAndMenuItemId(userId, menuItemId);
+
+        if (existingFavorite.isPresent()) {
+            menuItemFavoriteRepository.delete(existingFavorite.get());
+        }
+    }
+
     public void deleteMenuItemFavorite(Long id) {
         menuItemFavoriteRepository.deleteById(id);
     }

@@ -40,10 +40,25 @@ public class MenuItemFavoriteService {
     }
 
     public MenuItemFavoriteResponse createMenuItemFavorite(MenuItemFavoriteRequest request) {
+        // 중복 여부 확인
+        Optional<MenuItemFavorite> existingFavorite = menuItemFavoriteRepository.findByUserIdAndMenuItemId(request.getUserId(), request.getMenuItemId());
+
+        if (existingFavorite.isPresent()) {
+            return convertToResponse(existingFavorite.get());
+        }
+
+        // 중복이 아닌 경우 생성
         MenuItemFavorite menuItemFavorite = convertToEntity(request);
         MenuItemFavorite savedFavorite = menuItemFavoriteRepository.save(menuItemFavorite);
         return convertToResponse(savedFavorite);
     }
+
+
+//    public MenuItemFavoriteResponse createMenuItemFavorite(MenuItemFavoriteRequest request) {
+//        MenuItemFavorite menuItemFavorite = convertToEntity(request);
+//        MenuItemFavorite savedFavorite = menuItemFavoriteRepository.save(menuItemFavorite);
+//        return convertToResponse(savedFavorite);
+//    }
 
     public void deleteMenuItemFavorite(Long id) {
         menuItemFavoriteRepository.deleteById(id);

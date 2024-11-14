@@ -46,3 +46,4 @@ cors:
 
 pay:
   pay-path-origin: ${PAY_PATH_ORIGIN}
+  pay-client: ${PAY_CLIENT}

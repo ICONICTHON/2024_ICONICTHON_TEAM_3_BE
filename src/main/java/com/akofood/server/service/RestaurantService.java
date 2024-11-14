@@ -60,11 +60,11 @@ public class RestaurantService {
         RestaurantResponse response = new RestaurantResponse();
         response.setId(restaurant.getId());
         response.setRestaurantName(restaurant.getRestaurantName());
-        response.setAddress(restaurant.getAddress());
-        response.setPhoneNumber(restaurant.getPhoneNumber());
-        response.setWeekdayHours(restaurant.getWeekdayHours());
-        response.setWeekendHours(restaurant.getWeekendHours());
-        response.setHolidayHours(restaurant.getHolidayHours());
+//        response.setAddress(restaurant.getAddress());
+//        response.setPhoneNumber(restaurant.getPhoneNumber());
+//        response.setWeekdayHours(restaurant.getWeekdayHours());
+//        response.setWeekendHours(restaurant.getWeekendHours());
+//        response.setHolidayHours(restaurant.getHolidayHours());
         response.setCreatedAt(restaurant.getCreatedAt());
         response.setUpdatedAt(restaurant.getUpdatedAt());
 
@@ -102,11 +102,11 @@ public class RestaurantService {
     public RestaurantResponse updateRestaurant(Long id, RestaurantRequest request) {
         Restaurant restaurant = restaurantRepository.findById(id).orElseThrow();
         restaurant.setRestaurantName(request.getRestaurantName());
-        restaurant.setAddress(request.getAddress());
-        restaurant.setPhoneNumber(request.getPhoneNumber());
-        restaurant.setWeekdayHours(request.getWeekdayHours());
-        restaurant.setWeekendHours(request.getWeekendHours());
-        restaurant.setHolidayHours(request.getHolidayHours());
+//        restaurant.setAddress(request.getAddress());
+//        restaurant.setPhoneNumber(request.getPhoneNumber());
+//        restaurant.setWeekdayHours(request.getWeekdayHours());
+//        restaurant.setWeekendHours(request.getWeekendHours());
+//        restaurant.setHolidayHours(request.getHolidayHours());
 
         Restaurant updatedRestaurant = restaurantRepository.save(restaurant);
         return convertToResponse(updatedRestaurant);
@@ -121,11 +121,11 @@ public class RestaurantService {
         RestaurantResponse response = new RestaurantResponse();
         response.setId(restaurant.getId());
         response.setRestaurantName(restaurant.getRestaurantName());
-        response.setAddress(restaurant.getAddress());
-        response.setPhoneNumber(restaurant.getPhoneNumber());
-        response.setWeekdayHours(restaurant.getWeekdayHours());
-        response.setWeekendHours(restaurant.getWeekendHours());
-        response.setHolidayHours(restaurant.getHolidayHours());
+//        response.setAddress(restaurant.getAddress());
+//        response.setPhoneNumber(restaurant.getPhoneNumber());
+//        response.setWeekdayHours(restaurant.getWeekdayHours());
+//        response.setWeekendHours(restaurant.getWeekendHours());
+//        response.setHolidayHours(restaurant.getHolidayHours());
         response.setCreatedAt(restaurant.getCreatedAt());
         response.setUpdatedAt(restaurant.getUpdatedAt());
 
@@ -158,11 +158,11 @@ public class RestaurantService {
         RestaurantResponse response = new RestaurantResponse();
         response.setId(restaurant.getId());
         response.setRestaurantName(restaurant.getRestaurantName());
-        response.setAddress(restaurant.getAddress());
-        response.setPhoneNumber(restaurant.getPhoneNumber());
-        response.setWeekdayHours(restaurant.getWeekdayHours());
-        response.setWeekendHours(restaurant.getWeekendHours());
-        response.setHolidayHours(restaurant.getHolidayHours());
+//        response.setAddress(restaurant.getAddress());
+//        response.setPhoneNumber(restaurant.getPhoneNumber());
+//        response.setWeekdayHours(restaurant.getWeekdayHours());
+//        response.setWeekendHours(restaurant.getWeekendHours());
+//        response.setHolidayHours(restaurant.getHolidayHours());
         response.setCreatedAt(restaurant.getCreatedAt());
         response.setUpdatedAt(restaurant.getUpdatedAt());
 
@@ -194,11 +194,11 @@ public class RestaurantService {
     private Restaurant convertToEntity(RestaurantRequest request) {
         Restaurant restaurant = new Restaurant();
         restaurant.setRestaurantName(request.getRestaurantName());
-        restaurant.setAddress(request.getAddress());
-        restaurant.setPhoneNumber(request.getPhoneNumber());
-        restaurant.setWeekdayHours(request.getWeekdayHours());
-        restaurant.setWeekendHours(request.getWeekendHours());
-        restaurant.setHolidayHours(request.getHolidayHours());
+//        restaurant.setAddress(request.getAddress());
+//        restaurant.setPhoneNumber(request.getPhoneNumber());
+//        restaurant.setWeekdayHours(request.getWeekdayHours());
+//        restaurant.setWeekendHours(request.getWeekendHours());
+//        restaurant.setHolidayHours(request.getHolidayHours());
         return restaurant;
     }
 

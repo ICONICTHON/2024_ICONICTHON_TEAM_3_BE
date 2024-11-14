@@ -22,11 +22,11 @@ public class Restaurant extends BaseTimeEntity {
     private Long id;
 
     private String restaurantName;
-    private String address;
-    private String phoneNumber;
-    private String weekdayHours;
-    private String weekendHours;
-    private String holidayHours;
+//    private String address;
+//    private String phoneNumber;
+//    private String weekdayHours;
+//    private String weekendHours;
+//    private String holidayHours;
 
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<MenuItem> menuItems = new ArrayList<>();

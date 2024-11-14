@@ -11,11 +11,11 @@ import java.util.List;
 public class RestaurantResponse {
     private Long id;
     private String restaurantName;
-    private String address;
-    private String phoneNumber;
-    private String weekdayHours;
-    private String weekendHours;
-    private String holidayHours;
+//    private String address;
+//    private String phoneNumber;
+//    private String weekdayHours;
+//    private String weekendHours;
+//    private String holidayHours;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private List<MenuItemResponse> menuItems;

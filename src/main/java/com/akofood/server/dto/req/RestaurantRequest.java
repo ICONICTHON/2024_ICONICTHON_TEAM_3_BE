@@ -7,9 +7,9 @@ import lombok.Setter;
 @Setter
 public class RestaurantRequest {
     private String restaurantName;
-    private String address;
-    private String phoneNumber;
-    private String weekdayHours;
-    private String weekendHours;
-    private String holidayHours;
+//    private String address;
+//    private String phoneNumber;
+//    private String weekdayHours;
+//    private String weekendHours;
+//    private String holidayHours;
 }

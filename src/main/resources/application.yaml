@@ -43,3 +43,6 @@ cors:
   allowed-origin-backend-dev: ${ALLOWED_ORIGIN_BACKEND_DEV}
   allowed-origin-backend-dev-2: ${ALLOWED_ORIGIN_BACKEND_DEV_2}
   allowed-origin-deploy: ${ALLOWED_ORIGIN_DEPLOY}
+
+pay:
+  pay-path-origin: ${PAY_PATH_ORIGIN}

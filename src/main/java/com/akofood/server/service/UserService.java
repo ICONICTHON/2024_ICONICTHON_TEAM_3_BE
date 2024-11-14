@@ -4,15 +4,22 @@ import com.akofood.server.dto.req.UserRequest;
 import com.akofood.server.dto.res.UserResponse;
 import com.akofood.server.entity.User;
 import com.akofood.server.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
+@RequiredArgsConstructor
 public class UserService {
+    private final UserRepository UserRepository;
+
 
     @Autowired
     private UserRepository userRepository;
@@ -48,8 +55,8 @@ public class UserService {
         UserResponse response = new UserResponse();
         response.setId(user.getId());
         response.setNickname(user.getNickname());
-        response.setCreatedAt(user.getCreatedAt());
-        response.setUpdatedAt(user.getUpdatedAt());
+//        response.setCreatedAt(user.getCreatedAt());
+//        response.setUpdatedAt(user.getUpdatedAt());
         return response;
     }
 
@@ -57,5 +64,15 @@ public class UserService {
         User user = new User();
         user.setNickname(request.getNickname());
         return user;
+    }
+
+    public User autoRegister() {
+        User user = User.builder()
+                .username(UUID.randomUUID().toString())
+                .email("example@example.com")
+                .address("서울특별시 서초구 역삼동")
+                .build();
+
+        return userRepository.save(user);
     }
 }

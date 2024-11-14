@@ -207,6 +207,8 @@ public class RestaurantService {
 
     public List<RestaurantResponse> getRestaurantsByMenuName(String menuName) {
         return restaurantRepository.findAll().stream()
+                .filter(restaurant -> restaurant.getMenuItems().stream()
+                        .anyMatch(menuItem -> menuItem.getMenuName().toLowerCase().contains(menuName.toLowerCase())))
                 .map(restaurant -> convertToResponse(restaurant, menuName))  // menuName을 인자로 전달
                 .collect(Collectors.toList());
     }

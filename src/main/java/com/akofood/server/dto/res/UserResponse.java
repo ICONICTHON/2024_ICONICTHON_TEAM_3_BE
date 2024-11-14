@@ -10,6 +10,6 @@ import java.time.LocalDateTime;
 public class UserResponse {
     private Long id;
     private String nickname;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+//    private LocalDateTime createdAt;
+//    private LocalDateTime updatedAt;
 }

@@ -55,6 +55,14 @@ public class MenuItemService {
         return convertToResponse(updatedMenuItem);
     }
 
+    public MenuItemResponse updateMenuItemLike(Long id) {
+        MenuItem menuItem = menuItemRepository.findById(id).orElseThrow();
+        menuItem.setLikedCount(menuItem.getLikedCount()+1);
+        MenuItem updatedMenuItem = menuItemRepository.save(menuItem);
+        return convertToResponse(updatedMenuItem);
+    }
+
+
     public void deleteMenuItem(Long id) {
         menuItemRepository.deleteById(id);
     }

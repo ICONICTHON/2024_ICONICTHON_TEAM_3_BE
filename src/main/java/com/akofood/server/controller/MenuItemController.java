@@ -39,6 +39,11 @@ public class MenuItemController {
         return ResponseEntity.ok(menuItemService.updateMenuItem(id, request));
     }
 
+    @PutMapping("/{id}/like")
+    public ResponseEntity<MenuItemResponse> updateMenuItemLike(@PathVariable Long id) {
+        return ResponseEntity.ok(menuItemService.updateMenuItemLike(id));
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteMenuItem(@PathVariable Long id) {
         menuItemService.deleteMenuItem(id);

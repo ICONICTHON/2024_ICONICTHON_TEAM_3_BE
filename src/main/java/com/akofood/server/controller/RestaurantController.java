@@ -18,7 +18,11 @@ public class RestaurantController {
     private RestaurantService restaurantService;
 
     @GetMapping
-    public List<RestaurantResponse> getAllRestaurants() {
+    public List<RestaurantResponse> getAllRestaurants(
+            @RequestParam(value = "search_menu", required = false) String searchMenu) {
+        if (searchMenu != null && !searchMenu.isEmpty()) {
+            return restaurantService.getRestaurantsByMenuName(searchMenu);
+        }
         return restaurantService.getAllRestaurants();
     }
 

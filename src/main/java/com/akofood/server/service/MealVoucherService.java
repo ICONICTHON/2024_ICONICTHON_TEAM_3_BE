@@ -1,6 +1,7 @@
 package com.akofood.server.service;
 
 import com.akofood.server.dto.req.MealVoucherRequest;
+import com.akofood.server.dto.res.MealVoucherDetailResponse;
 import com.akofood.server.dto.res.MealVoucherResponse;
 import com.akofood.server.entity.MealVoucher;
 import com.akofood.server.entity.MenuItem;
@@ -92,4 +93,37 @@ public class MealVoucherService {
         mealVoucher.setUsed(request.isUsed());
         return mealVoucher;
     }
+
+    public List<MealVoucherDetailResponse> getMealVouchersByUserId(Long userId) {
+        List<MealVoucher> mealVouchers = mealVoucherRepository.findByUserId(userId);
+
+        return mealVouchers.stream().map(mealVoucher -> {
+            MealVoucherDetailResponse response = new MealVoucherDetailResponse();
+            response.setId(mealVoucher.getId());
+            response.setUniqueIdentifier(mealVoucher.getUniqueIdentifier());
+            response.setOrderNumber(mealVoucher.getOrderNumber());
+            response.setUsed(mealVoucher.isUsed());
+
+            // Restaurant ID 및 이름 설정
+            Restaurant restaurant = mealVoucher.getRestaurant();
+            response.setRestaurantId(restaurant.getId());
+            response.setRestaurantName(restaurant.getRestaurantName());
+
+            // MenuItem ID 및 정보 설정
+            MenuItem menuItem = mealVoucher.getMenuItem();
+            response.setMenuItemId(menuItem.getId());
+            response.setMenuName(menuItem.getMenuName());
+            response.setMenuPrice(menuItem.getMenuPrice());
+            response.setOperatingHours(menuItem.getOperatingHours());
+            response.setDailyUsageLimit(menuItem.getDailyUsageLimit());
+            response.setDailyUsageCount(menuItem.getDailyUsageCount());
+            response.setTotalUsageCount(menuItem.getTotalUsageCount());
+            response.setDailyVoucherSales(menuItem.getDailyVoucherSales());
+            response.setTotalVoucherSales(menuItem.getTotalVoucherSales());
+            response.setLikedCount(menuItem.getLikedCount());
+
+            return response;
+        }).collect(Collectors.toList());
+    }
+
 }

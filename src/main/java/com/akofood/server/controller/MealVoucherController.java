@@ -1,6 +1,7 @@
 package com.akofood.server.controller;
 
 import com.akofood.server.dto.req.MealVoucherRequest;
+import com.akofood.server.dto.res.MealVoucherDetailResponse;
 import com.akofood.server.dto.res.MealVoucherResponse;
 import com.akofood.server.entity.MealVoucher;
 import com.akofood.server.service.MealVoucherService;
@@ -27,6 +28,12 @@ public class MealVoucherController {
         return mealVoucherService.getMealVoucherById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/users/{user_id}")
+    public ResponseEntity<List<MealVoucherDetailResponse>> getMealVouchersByUserId(@PathVariable Long user_id) {
+        List<MealVoucherDetailResponse> mealVouchers = mealVoucherService.getMealVouchersByUserId(user_id);
+        return ResponseEntity.ok(mealVouchers);
     }
 
     @PostMapping

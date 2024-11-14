@@ -77,6 +77,7 @@ public class RestaurantService {
                     itemResponse.setRestaurantId(restaurant.getId());
                     itemResponse.setMenuName(menuItem.getMenuName());
                     itemResponse.setMenuPrice(menuItem.getMenuPrice());
+                    itemResponse.setOperatingHours(menuItem.getOperatingHours());
                     itemResponse.setDailyUsageLimit(menuItem.getDailyUsageLimit());
                     itemResponse.setDailyUsageCount(menuItem.getDailyUsageCount());
                     itemResponse.setTotalUsageCount(menuItem.getTotalUsageCount());
@@ -137,6 +138,7 @@ public class RestaurantService {
                     itemResponse.setRestaurantId(restaurant.getId());  // restaurantId 설정
                     itemResponse.setMenuName(menuItem.getMenuName());
                     itemResponse.setMenuPrice(menuItem.getMenuPrice());
+                    itemResponse.setOperatingHours(menuItem.getOperatingHours());
                     itemResponse.setDailyUsageLimit(menuItem.getDailyUsageLimit());
                     itemResponse.setDailyUsageCount(menuItem.getDailyUsageCount());
                     itemResponse.setTotalUsageCount(menuItem.getTotalUsageCount());
@@ -175,6 +177,7 @@ public class RestaurantService {
                     itemResponse.setRestaurantId(restaurant.getId());
                     itemResponse.setMenuName(menuItem.getMenuName());
                     itemResponse.setMenuPrice(menuItem.getMenuPrice());
+                    itemResponse.setOperatingHours(menuItem.getOperatingHours());
                     itemResponse.setDailyUsageLimit(menuItem.getDailyUsageLimit());
                     itemResponse.setDailyUsageCount(menuItem.getDailyUsageCount());
                     itemResponse.setTotalUsageCount(menuItem.getTotalUsageCount());

@@ -26,6 +26,10 @@ public class MenuItem extends BaseTimeEntity {
 
     private String menuName;
     private BigDecimal menuPrice;
+
+    // 운용시간 필드 추가
+    private String operatingHours;
+
     private int dailyUsageLimit;
     private int dailyUsageCount;
     private int totalUsageCount;

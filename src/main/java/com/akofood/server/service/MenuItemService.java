@@ -45,6 +45,7 @@ public class MenuItemService {
         MenuItem menuItem = menuItemRepository.findById(id).orElseThrow();
         menuItem.setMenuName(request.getMenuName());
         menuItem.setMenuPrice(request.getMenuPrice());
+        menuItem.setOperatingHours(request.getOperatingHours());
         menuItem.setDailyUsageLimit(request.getDailyUsageLimit());
         menuItem.setDailyUsageCount(request.getDailyUsageCount());
         menuItem.setTotalUsageCount(request.getTotalUsageCount());
@@ -73,6 +74,7 @@ public class MenuItemService {
         response.setRestaurantId(menuItem.getRestaurant().getId());
         response.setMenuName(menuItem.getMenuName());
         response.setMenuPrice(menuItem.getMenuPrice());
+        response.setOperatingHours(menuItem.getOperatingHours());
         response.setDailyUsageLimit(menuItem.getDailyUsageLimit());
         response.setDailyUsageCount(menuItem.getDailyUsageCount());
         response.setTotalUsageCount(menuItem.getTotalUsageCount());
@@ -93,7 +95,13 @@ public class MenuItemService {
 
         menuItem.setMenuName(request.getMenuName());
         menuItem.setMenuPrice(request.getMenuPrice());
+        menuItem.setOperatingHours(request.getOperatingHours());
         menuItem.setDailyUsageLimit(request.getDailyUsageLimit());
+        menuItem.setDailyUsageCount(request.getDailyUsageCount());
+        menuItem.setTotalUsageCount(request.getTotalUsageCount());
+        menuItem.setDailyVoucherSales(request.getDailyVoucherSales());
+        menuItem.setTotalVoucherSales(request.getTotalVoucherSales());
+        menuItem.setLikedCount(request.getLikedCount());
         return menuItem;
     }
 }

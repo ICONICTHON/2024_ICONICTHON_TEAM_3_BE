@@ -11,6 +11,7 @@ public class MenuItemRequest {
     private Long restaurantId;
     private String menuName;
     private BigDecimal menuPrice;
+    private String operatingHours;
     private int dailyUsageLimit;
     private int dailyUsageCount;
     private int totalUsageCount;

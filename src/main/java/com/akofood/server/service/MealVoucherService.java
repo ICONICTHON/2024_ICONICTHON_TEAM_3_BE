@@ -4,6 +4,7 @@ import com.akofood.server.dto.req.MealVoucherCreateRequest;
 import com.akofood.server.dto.req.MealVoucherRequest;
 import com.akofood.server.dto.res.MealVoucherDetailResponse;
 import com.akofood.server.dto.res.MealVoucherResponse;
+import com.akofood.server.dto.res.QrRecognizeResponse;
 import com.akofood.server.entity.MealVoucher;
 import com.akofood.server.entity.MenuItem;
 import com.akofood.server.entity.Restaurant;
@@ -89,13 +90,7 @@ public class MealVoucherService {
         MenuItem menuItem = menuItemRepository.findById(request.getMenuItemId()).orElseThrow(NoSuchElementException::new);
         mealVoucher.setMenuItem(menuItem);
 
-        // 메뉴 아이템 ID와 사용 여부를 기준으로 최근 사용된 orderNumber 가져오기
-        Long menuItemId = request.getMenuItemId();
-        Optional<MealVoucher> recentUsedVoucher = mealVoucherRepository.findTopByMenuItemIdAndUsedTrueOrderByUpdatedAtDesc(menuItemId);
-
-        int orderNumber = recentUsedVoucher.map(voucher -> voucher.getOrderNumber() + 1).orElse(200);
-        mealVoucher.setOrderNumber(orderNumber);
-
+        mealVoucher.setOrderNumber(0);
         mealVoucher.setUsed(false);
         return mealVoucher;
     }
@@ -132,4 +127,36 @@ public class MealVoucherService {
         }).collect(Collectors.toList());
     }
 
+    public QrRecognizeResponse putQrRecognize(String uniqueIdentifier) {
+        QrRecognizeResponse qrRecognizeResponse = new QrRecognizeResponse();
+        Optional<MealVoucher> optionalMealVoucher = mealVoucherRepository.findByUniqueIdentifier(uniqueIdentifier);
+        if (optionalMealVoucher.isPresent()){
+            if(optionalMealVoucher.get().isUsed()){
+                // 이미 사용된 식권. false 처리하되
+                qrRecognizeResponse.setUse(false);
+                qrRecognizeResponse.setInfo("이미 사용된 식권입니다.");
+            }
+            else {
+                updateQrRecognize(optionalMealVoucher.get());
+                qrRecognizeResponse.setUse(true);
+                qrRecognizeResponse.setInfo("식권이 사용되었습니다.");
+            }
+        }
+        else{
+            qrRecognizeResponse.setUse(false);
+            qrRecognizeResponse.setInfo("잘못된 식권입니다.");
+        }
+
+        return qrRecognizeResponse;
+    }
+
+    public void updateQrRecognize(MealVoucher mealVoucher){
+        // 메뉴 ID와 사용 여부를 기준으로 최근 사용된 orderNumber 가져오기
+        Long menuItemId = mealVoucher.getMenuItem().getId();
+        Optional<MealVoucher> recentUsedVoucher = mealVoucherRepository.findTopByMenuItemIdAndUsedTrueOrderByUpdatedAtDesc(menuItemId);
+        int orderNumber = recentUsedVoucher.map(voucher -> voucher.getOrderNumber() + 1).orElse(200);
+        mealVoucher.setOrderNumber(orderNumber);
+        mealVoucher.setUsed(true);
+        mealVoucherRepository.save(mealVoucher);
+    }
 }

@@ -11,4 +11,5 @@ public interface MealVoucherRepository extends JpaRepository<MealVoucher, Long> 
 
     // menuItemId 값과 used 상태를 기준으로 updatedAt이 가장 최근인 record를 찾음
     Optional<MealVoucher> findTopByMenuItemIdAndUsedTrueOrderByUpdatedAtDesc(Long menuItemId);
+    Optional<MealVoucher> findByUniqueIdentifier(String uniqueIdentifier);
 }

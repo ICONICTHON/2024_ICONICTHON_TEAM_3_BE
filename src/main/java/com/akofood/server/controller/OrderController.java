@@ -89,11 +89,13 @@ public class OrderController {
             log.info("식권 생성 완료, 결제 트랜잭션 ID: " + approveResponse.getTid());
 
             // 결제 완료 페이지로 리다이렉트
-            return "redirect:" + pay_client + "/order/completed";
+//            return "redirect:" + pay_client + "/order/completed";
+            return "redirect:" + pay_client;
         } else {
             // 결제 실패 시 실패 페이지로 리다이렉트
             log.error("카카오 결제 승인 실패: " + approveResponse);
-            return "redirect:" + pay_client + "/pay/fail";
+//            return "redirect:" + pay_client + "/pay/fail";
+            return "redirect:" + pay_client;
         }
     }
 }

@@ -27,6 +27,7 @@ public class OrderController {
 
     private final KakaoPayService kakaoPayService;
 
+
     @PostMapping("/pay/ready")
     public @ResponseBody ReadyResponse payReady(@RequestBody OrderCreateForm orderCreateForm) {
 
@@ -51,6 +52,24 @@ public class OrderController {
         String tid = SessionUtils.getStringAttributeValue("tid");
         log.info("결제승인 요청을 인증하는 토큰: " + pgToken);
         log.info("결제 고유번호: " + tid);
+
+        ApproveResponse approveResponse = kakaoPayService.payApprove(tid, pgToken);
+
+        if (approveResponse != null && approveResponse.getTid() != null) {
+            // 결제가 성공적으로 승인된 경우 세션에 식권 정보 추가
+            SessionUtils.addAttribute("ticket", approveResponse.getTid());
+            log.info("식권 생성 완료, 결제 트랜잭션 ID: " + approveResponse.getTid());
+
+            // 결제 완료 페이지로 리다이렉트
+            return "redirect:" + pay_client + "/order/completed";
+        } else {
+            // 결제 실패 시 실패 페이지로 리다이렉트
+            log.error("카카오 결제 승인 실패: " + approveResponse);
+            return "redirect:" + pay_client + "/pay/fail";
+        }
+    }
+}
+
 //
 //        // 카카오 결제 요청하기
 //        ApproveResponse approveResponse = kakaoPayService.payApprove(tid, pgToken);
@@ -76,8 +95,5 @@ public class OrderController {
 ////            return "redirect:" + externalFailUrl;  // 실패 페이지로 리다이렉트
 //            return null;
 //        }
-        String externalUrl = pay_client;   // 다른 호스트로 리다이렉트
-        return "redirect:" + externalUrl;  // 다른 호스트로 리다이렉트
-//
-    }
-}
+//        String externalUrl = pay_client;
+//        return "redirect:" + externalUrl;  // 다른 호스트로 리다이렉트

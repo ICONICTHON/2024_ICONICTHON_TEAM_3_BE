@@ -51,30 +51,33 @@ public class OrderController {
         String tid = SessionUtils.getStringAttributeValue("tid");
         log.info("결제승인 요청을 인증하는 토큰: " + pgToken);
         log.info("결제 고유번호: " + tid);
-
-        // 카카오 결제 요청하기
-        ApproveResponse approveResponse = kakaoPayService.payApprove(tid, pgToken);
-
-        // 결제 승인 응답 처리
-        if (approveResponse != null && approveResponse.getTid() != null) {
-            // 결제 승인 성공 시, 해당 결제 정보를 DB에 저장
-            // 예시로 OrderService를 사용해 결제 정보 저장 처리
-//            Order order = new Order();
-//            order.setTid(approveResponse.getTid());
-//            order.setAmount(approveResponse.getAmount().getTotal());
-//            order.setPaymentMethod(approveResponse.getPaymentMethodType());
-//            order.setStatus("COMPLETED");
 //
-//            // 결제 정보 저장
-//            orderService.saveOrder(order);
-
-            String externalUrl = pay_client;   // 다른 호스트로 리다이렉트
-            return "redirect:" + externalUrl;  // 다른 호스트로 리다이렉트
-        } else {
-            // 결제 실패 시, 실패 페이지로 리다이렉트
-//            String externalFailUrl = "https://www.external-site.com/pay/fail";  // 다른 호스트로 리다이렉트
-//            return "redirect:" + externalFailUrl;  // 실패 페이지로 리다이렉트
-            return null;
-        }
+//        // 카카오 결제 요청하기
+//        ApproveResponse approveResponse = kakaoPayService.payApprove(tid, pgToken);
+//
+//        // 결제 승인 응답 처리
+//        if (approveResponse != null && approveResponse.getTid() != null) {
+//            // 결제 승인 성공 시, 해당 결제 정보를 DB에 저장
+//            // 예시로 OrderService를 사용해 결제 정보 저장 처리
+////            Order order = new Order();
+////            order.setTid(approveResponse.getTid());
+////            order.setAmount(approveResponse.getAmount().getTotal());
+////            order.setPaymentMethod(approveResponse.getPaymentMethodType());
+////            order.setStatus("COMPLETED");
+////
+////            // 결제 정보 저장
+////            orderService.saveOrder(order);
+//
+//            String externalUrl = pay_client;   // 다른 호스트로 리다이렉트
+//            return "redirect:" + externalUrl;  // 다른 호스트로 리다이렉트
+//        } else {
+//            // 결제 실패 시, 실패 페이지로 리다이렉트
+////            String externalFailUrl = "https://www.external-site.com/pay/fail";  // 다른 호스트로 리다이렉트
+////            return "redirect:" + externalFailUrl;  // 실패 페이지로 리다이렉트
+//            return null;
+//        }
+        String externalUrl = pay_client;   // 다른 호스트로 리다이렉트
+        return "redirect:" + externalUrl;  // 다른 호스트로 리다이렉트
+//
     }
 }

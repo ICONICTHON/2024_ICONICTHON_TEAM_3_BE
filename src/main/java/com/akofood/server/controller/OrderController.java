@@ -1,9 +1,13 @@
 package com.akofood.server.controller;
 
+import com.akofood.server.dto.req.MealVoucherCreateRequest;
 import com.akofood.server.dto.res.ApproveResponse;
+import com.akofood.server.repository.MenuItemRepository;
 import com.akofood.server.service.KakaoPayService;
+import com.akofood.server.service.MealVoucherService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,9 +16,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.GetMapping;
-import com.akofood.server.entity.OrderCreateForm;
+import com.akofood.server.dto.req.OrderCreateForm;
 
 import com.akofood.server.dto.res.ReadyResponse;
+
+import java.util.Optional;
 
 
 @Slf4j
@@ -27,9 +33,19 @@ public class OrderController {
 
     private final KakaoPayService kakaoPayService;
 
+    @Autowired
+    private MealVoucherService mealVoucherService;
+    @Autowired
+    private MenuItemRepository menuItemRepository;
+
 
     @PostMapping("/pay/ready")
     public @ResponseBody ReadyResponse payReady(@RequestBody OrderCreateForm orderCreateForm) {
+
+        Long userId = orderCreateForm.getUserId();
+        Long menuItemId = orderCreateForm.getMenuItemId();
+
+
 
         String name = orderCreateForm.getName();
         int totalPrice = orderCreateForm.getTotalPrice();
@@ -42,6 +58,18 @@ public class OrderController {
         // 세션에 결제 고유번호(tid) 저장
         SessionUtils.addAttribute("tid", readyResponse.getTid());
         log.info("결제 고유번호: " + readyResponse.getTid());
+
+        MealVoucherCreateRequest mealVoucherCreateRequest = new MealVoucherCreateRequest();
+
+        Optional<Long> optionalRestaurantId = menuItemRepository.findById(menuItemId).map(menuItem -> menuItem.getRestaurant().getId());
+
+        Long restaurantId = optionalRestaurantId.get();
+
+        mealVoucherCreateRequest.setRestaurantId(restaurantId);
+        mealVoucherCreateRequest.setUserId(userId);
+        mealVoucherCreateRequest.setMenuItemId(menuItemId);
+
+        mealVoucherService.createMealVoucher(mealVoucherCreateRequest);
 
         return readyResponse;
     }
